@@ -9,9 +9,11 @@ dbConn.connect(function(err) {
     } 
     
     console.log("Mysql database connected successfully!");
+    //CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE};
 
     var sqlScript = `
-    CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}; 
+    DROP DATABASE IF EXISTS ${process.env.MYSQL_DATABASE};
+    CREATE DATABASE ${process.env.MYSQL_DATABASE}; 
     
     USE ${process.env.MYSQL_DATABASE};
 
