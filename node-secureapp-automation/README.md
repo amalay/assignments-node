@@ -3,7 +3,7 @@ Develope a simple application in NodeJS which provide services to send individua
 
 #### Scenarios
 * It should support role based user authentication and authorization mechanism.
-* It should support at least two type of role Admin and Basic.
+* It should support at least two type of role <b>Admin</b> and <b>Basic</b>.
 * Only authenticated user can execute the api methods.
 * Only Admin can create/update/delete user.
 * Only Admin can view the list of all users and their details.
@@ -13,7 +13,7 @@ Develope a simple application in NodeJS which provide services to send individua
 * Any authenticated user can send message to individual user or in group.
 * Any authenticated user can like the message or reply the message.
 
-You have to also automate the complete unit testing process using any unit test framework of your choice.
+You have to also automate the complete unit testing process using any unit test framework of your choice.<br/>
 You can use any database of your choice to complete this assignment.
 
 
