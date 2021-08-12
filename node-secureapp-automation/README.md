@@ -1,4 +1,21 @@
-# Assignment - Develope a simple application in NodeJS which provide services to send individual/group messages and manage the data as per below scenarios:
+# Assignment
+Develope a simple application in NodeJS which provide services to send individual/group messages and manage the data as per below scenarios:
+
+#### Scenarios
+* It should support role based user authentication and authorization mechanism.
+* It should support at least two type of role Admin and Basic.
+* Only authenticated user can execute the api methods.
+* Only Admin can create/update/delete user.
+* Only Admin can view the list of all users and their details.
+* Basic user can view his details only.
+* Any authenticated user can create/update/delete Group.
+* Any authenticated user can search member in the group and also add member in the group.
+* Any authenticated user can send message to individual user or in group.
+* Any authenticated user can like the message or reply the message.
+
+You have to also automate the complete unit testing process using any unit test framework of your choice.
+You can use any database of your choice to complete this assignment.
+
 
 ## Learnig steps
 
