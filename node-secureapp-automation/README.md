@@ -36,8 +36,7 @@ You can use any database of your choice to complete this assignment.
 * On the new terminal run the commad "mocha". It will run all the test cases and you can see the results on the same terminal. You will see the screen as below:
 
 ![image](https://user-images.githubusercontent.com/84455469/129382686-08f14670-7110-464c-9ee0-4224081ccc15.png)
-![image](https://user-images.githubusercontent.com/84455469/129382779-4b494ba6-c10f-46ef-ae9f-9eac1e7f7c61.png)
-
+![image](https://user-images.githubusercontent.com/84455469/129383392-987bac19-ff78-4cf0-8d4e-ce8e46c6ad4f.png)
 
 ### Required packages and commands to install
 > npm install express --save-dev
