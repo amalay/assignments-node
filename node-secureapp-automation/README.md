@@ -706,3 +706,325 @@ Required but not passing.
     "message": "Password changed successfully!"
 }
 ```
+
+#### D. Group APIs
+##### 1. POST: http://localhost:3000/api/group
+This is the CREATE GROUP API and will be accessed by only authenticated user having Admin or Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{
+    "Name": "Test",
+    "DisplayName": "Test",
+    "EmailGroup": "test@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{
+    "Name": "Test",
+    "DisplayName": "Test",
+    "EmailGroup": "test@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 43
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{
+    "Name": "Test",
+    "DisplayName": "Test",
+    "EmailGroup": "test@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 44
+}
+```
+
+##### 2. PUT: http://localhost:3000/api/group/43
+This is the UPDATE GROUP API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{
+    "Name": "Test123",
+    "DisplayName": "Test123",
+    "EmailGroup": "test123@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{
+    "Name": "Test123",
+    "DisplayName": "Test123",
+    "EmailGroup": "test123@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record updated successfully!"
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{
+    "Name": "Test123",
+    "DisplayName": "Test123",
+    "EmailGroup": "test123@abc.com"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record updated successfully!"
+}
+```
+
+##### 3. DELETE: http://localhost:3000/api/user/43
+This is the DELETE GROUP API and will be accessed by only authenticated user having Admin/Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record deleted successfully!"
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record deleted successfully!"
+}
+```
+
+##### 4. GET: http://localhost:3000/api/group/2
+This is the GET GROUP API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User or Admin Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+[
+    {
+        "Id": 2,
+        "Name": "AllUser",
+        "DisplayName": "All User",
+        "EmailGroup": "alluser@abc.com"
+    }
+]
+```
+
+##### 5. GET: http://localhost:3000/api/group
+This is the GET GROUP API and will be accessed by only authenticated user having Admin/Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+[
+    {
+        "Id": 1,
+        "Name": "AllAdmin",
+        "DisplayName": "All Admin",
+        "EmailGroup": "alladmin@abc.com"
+    },    
+    {
+        "Id": 2,
+        "Name": "AllUser",
+        "DisplayName": "All User",
+        "EmailGroup": "alluser@abc.com"
+    }
+]
+```
+
+###### OR
+###### Payload: With Admin access token in request header
+```json
+Not required.
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+[
+    {
+        "Id": 1,
+        "Name": "AllAdmin",
+        "DisplayName": "All Admin",
+        "EmailGroup": "alladmin@abc.com"
+    },    
+    {
+        "Id": 2,
+        "Name": "AllUser",
+        "DisplayName": "All User",
+        "EmailGroup": "alluser@abc.com"
+    }
+]
+```
