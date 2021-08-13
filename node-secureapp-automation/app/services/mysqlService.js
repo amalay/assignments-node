@@ -121,3 +121,5 @@ dbConn.connect(function(err) {
         console.log(`MySql script executed successfully!`);        
     });
 });
+
+module.exports = dbConn;
