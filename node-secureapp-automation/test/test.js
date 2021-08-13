@@ -7,6 +7,9 @@ var server = supertest.agent("http://localhost:3000");  //Set agent with server 
 
 var randomNumber = 123;
 var newlyCreatedUserId = 0;
+var newlyCreatedGroupId = 0;
+var adminUserId = 1;
+var basicUserId = 2;
 var userAccessToken = "";
 var adminAccessToken = "";
 var userLogin = {
@@ -278,37 +281,326 @@ describe("UserApi", () => {
 });
 
 //===============================================================================================
+//Group Api  
+//===============================================================================================
+describe("GroupApi", () => {  
+    var group = {
+        Name: `Test${randomNumber}`,    
+        DisplayName: `Test ${randomNumber}`,    
+        EmailGroup: `test${randomNumber}@abc.com`
+    };
+
+    //===============================================================================================
+    //Create User Api  
+    //===============================================================================================
+    it("Group Create - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.post("/api/group").send(group);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Group Create - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.post("/api/group").set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf").send(group);
+    
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+    
+    it("Group Create - Falied! Required all mandatory fields.", async () => {     
+        let response = await server.post("/api/group").set("x-access-token", userAccessToken).send({});
+    
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Please provide all required fields!');
+    });
+    
+    it("Group Create - Success! Group has been created.", async () => {     
+        const response = await server.post("/api/group").set("x-access-token", userAccessToken).send(group);
+    
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Record created successfully!");
+    
+        newlyCreatedGroupId = response.body.data;
+    });
+
+
+    //===============================================================================================
+    //Update Group Api  
+    //===============================================================================================
+    var updatedGroup = {
+        Name: `${group.Name}Test`,
+        DisplayName: `${group.DisplayName} Test`,
+        EmailGroup: `${group.EmailGroup}.test`
+    }
+
+    it("Group Update - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.put(`/api/group/${newlyCreatedGroupId}`).send(updatedGroup);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Group Update - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.put(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf").send(updatedGroup);
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Group Update - Falied! Required all mandatory fields.", async () => { 
+        let response = await server.put(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", userAccessToken).send({});
+
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Please provide all required fields!');
+    });
+
+    //===============================================================================================
+    //Get Group Api  
+    //===============================================================================================
+    //Get All
+    it("Group View All - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.get(`/api/group`);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Group View All - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.get(`/api/group`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf");
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Group View All - Success! Users has been retrived.", async () => { 
+        const response = await server.get(`/api/group`).set("x-access-token", userAccessToken);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.equal(false);        
+        expect(response.body.data).to.be.a('array');
+        expect(response.body.data.length).to.be.greaterThan(0);
+    });
+
+    //GetById
+    it("Group View By Id - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.get(`/api/group/${newlyCreatedGroupId}`);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Group View By Id - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.get(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf");
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Group View By Id - Success! Group has been retrived.", async () => {     
+        const response = await server.get(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", userAccessToken);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.error).to.equal(false);        
+        expect(response.body.data).to.be.a('array');
+        expect(response.body.data.length).to.be.greaterThan(0);
+    });
+
+    //===============================================================================================
+    //Add User To Group Api  
+    //===============================================================================================
+    it("Group AddUserToGroup - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.post("/api/group/addUser").send({ UserId: newlyCreatedUserId, GroupId: newlyCreatedGroupId });
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Group AddUserToGroup - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.post("/api/group/addUser").set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf").send({ UserId: newlyCreatedUserId, GroupId: newlyCreatedGroupId });
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Group AddUserToGroup - Falied! Required all mandatory fields.", async () => {    
+        let response = await server.post("/api/group/addUser").set("x-access-token", userAccessToken).send({});
+
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Please provide all required fields!');
+    });
+
+    it("Group AddUserToGroup - Success! User has been added to group.", async () => {    
+        const response = await server.post("/api/group/addUser").set("x-access-token", userAccessToken).send({ UserId: newlyCreatedUserId, GroupId: newlyCreatedGroupId });
+
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Record created successfully!");
+    });
+
+    //===============================================================================================
+    //Add Users To Group Api  
+    //===============================================================================================
+
+});
+
+//===============================================================================================
+//Message Api  
+//===============================================================================================
+describe("MessageApi", () => {
+    //===============================================================================================
+    //Send Message Api  
+    //===============================================================================================
+    var message = {
+        Message: "Individual Test Message",    
+        SenderId: 2,
+        RecipientId: 1
+    };
+
+    it("Send Message - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.post("/api/message").send(message);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Send Message - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.post("/api/message").set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf").send(message);
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Send Message - Falied! Required all mandatory fields.", async () => {     
+        let response = await server.post("/api/message").set("x-access-token", userAccessToken).send({});
+
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Please provide all required fields!');
+    });
+
+    it("Send Message - Success! Message has been sent.", async () => {      
+        const response = await server.post("/api/message").set("x-access-token", userAccessToken).send(message);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Message sent successfully!");
+    });
+
+    //===============================================================================================
+    //Send Group Message Api  
+    //===============================================================================================
+    var groupMessage = {
+        Message: "Group Test Message",    
+        SenderId: 2,
+        GroupId: 2
+    };
+
+    it("Send Group Message - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.post("/api/message/sendGroupMessage").send(groupMessage);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("Send Group Message - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.post("/api/message/sendGroupMessage").set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf").send(groupMessage);
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("Send Group Message - Falied! Required all mandatory fields.", async () => {     
+        let response = await server.post("/api/message/sendGroupMessage").set("x-access-token", userAccessToken).send({});
+
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Please provide all required fields!');
+    });
+
+    it("Send Group Message - Success! Group message has been sent.", async () => {      
+        const response = await server.post("/api/message/sendGroupMessage").set("x-access-token", userAccessToken).send(groupMessage);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Message sent successfully!");
+    });
+});
+
+//===============================================================================================
 //Final Operations  
 //===============================================================================================
-describe("FinalOperations", () => {    
-  it("User Delete - Falied! Unauthenticated user can not perform this action.", async () => { 
-    let response = await server.delete(`/api/user/${newlyCreatedUserId}`);
+/* describe("FinalOperations", () => {
+    //===============================================================================================
+    //Delete Group Api  
+    //===============================================================================================
+    it("Group Delete - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.delete(`/api/group/${newlyCreatedGroupId}`);
 
-    expect(response.status).to.equal(403);
-    expect(response.body.error).to.equal(true);
-    expect(response.body.message).to.equal('No access token available!');
-  });
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
 
-  it("User Delete - Falied! Invalid access token to perform this action.", async () => { 
-    let response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf");
+    it("Group Delete - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.delete(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf");
 
-    expect(response.status).to.equal(401);
-    expect(response.body.error).to.equal(true);
-    expect(response.body.message).to.equal('Invalid/Expired access token!');
-  });
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
 
-  it("User Delete - Falied! Authenticated user but not having admin priviledge to perform this action.", async () => {     
-    const response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", userAccessToken);
+    it("Group Delete - Success! Group has been deleted.", async () => {     
+        const response = await server.delete(`/api/group/${newlyCreatedGroupId}`).set("x-access-token", userAccessToken);
 
-    expect(response.status).to.equal(403);
-    expect(response.body.error).to.equal(true);
-    expect(response.body.message).to.equal('You are not having admin priviledge to perform this action!');
-  }); 
-  
-  it("User Delete - Success! User has been deleted.", async () => {     
-    const response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", adminAccessToken);
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Record deleted successfully!");
+    });
 
-    expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal("Record deleted successfully!");
-  });
-});
+    //===============================================================================================
+    //Delete User Api  
+    //===============================================================================================
+    it("User Delete - Falied! Unauthenticated user can not perform this action.", async () => { 
+        let response = await server.delete(`/api/user/${newlyCreatedUserId}`);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('No access token available!');
+    });
+
+    it("User Delete - Falied! Invalid access token to perform this action.", async () => { 
+        let response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eysdfsffdfsdfsdf");
+
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('Invalid/Expired access token!');
+    });
+
+    it("User Delete - Falied! Authenticated user but not having admin priviledge to perform this action.", async () => {     
+        const response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", userAccessToken);
+
+        expect(response.status).to.equal(403);
+        expect(response.body.error).to.equal(true);
+        expect(response.body.message).to.equal('You are not having admin priviledge to perform this action!');
+    }); 
+
+    it("User Delete - Success! User has been deleted.", async () => {     
+        const response = await server.delete(`/api/user/${newlyCreatedUserId}`).set("x-access-token", adminAccessToken);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.equal("Record deleted successfully!");
+    });
+}); */

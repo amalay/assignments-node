@@ -70,9 +70,8 @@ dbConn.connect(function(err) {
 
     LOCK TABLES \`group\` WRITE;
     INSERT INTO \`group\` VALUES 
-        (1, 'AllAdmin', 'All Admin', 'alladmin@abc.com'),
-        (2, 'AllHR', 'All HR', 'allhr@abc.com'),
-        (3, 'AllUser', 'All User', 'alluser@abc.com');
+        (1, 'AllAdmin', 'All Admin', 'alladmin@abc.com'),        
+        (2, 'AllUser', 'All User', 'alluser@abc.com');
     UNLOCK TABLES;
 
     DROP TABLE IF EXISTS usergroup;
@@ -87,6 +86,13 @@ dbConn.connect(function(err) {
         CONSTRAINT FK_Group_UserGroup FOREIGN KEY (GroupId) REFERENCES \`group\` (Id),
         CONSTRAINT FK_User_UserGroup FOREIGN KEY (UserId) REFERENCES user (Id)
     ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+    LOCK TABLES usergroup WRITE;
+    INSERT INTO usergroup VALUES 
+        (1, 1, 1),        
+        (2, 1, 2),
+        (3, 2, 2);
+    UNLOCK TABLES;
 
     DROP TABLE IF EXISTS message;
     CREATE TABLE message 

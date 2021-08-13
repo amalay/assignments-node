@@ -30,9 +30,7 @@ exports.sendMessage = (data, callback) => {
             response.MessageRecipientId = messageRecipientResponse.insertId;
 
             callback(null, response);
-        });  
-        
-        callback(null, null);
+        }); 
     });
 };
 
@@ -74,8 +72,6 @@ exports.sendGroupMessage = (data, callback) => {
                 });
             });
         }
-
-        callback(null, null);
     });
 };
 
