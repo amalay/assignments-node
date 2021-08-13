@@ -22,13 +22,19 @@ exports.updateGroup = async (id, data, callback) => {
 }
 
 exports.deleteGroup = async (id, callback) => {
-    dbConn.query("DELETE FROM `group` WHERE id = ?", [id], async (err, result) => {
+    dbConn.query("DELETE FROM usergroup WHERE GroupId = ?", [id], async (err, result) => {
         if(err) {                    
             throw err;
         }
 
-        callback(null, result);
-    });
+        dbConn.query("DELETE FROM `group` WHERE id = ?", [id], async (err, result) => {
+            if(err) {                    
+                throw err;
+            }
+    
+            callback(null, result);
+        });
+    });    
 }
 
 exports.getGroup = async (id, callback) => {
