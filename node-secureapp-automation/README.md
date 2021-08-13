@@ -1028,3 +1028,322 @@ Not required.
     }
 ]
 ```
+
+##### 6. POST: http://localhost:3000/api/group/addUser
+This is the ADD USER TO GROUP API and will be accessed by only authenticated user having Admin or Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{
+    "UserId": "5",
+    "GroupId": "1"
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{
+    "UserId": "5",
+    "GroupId": "1"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 6
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{
+    "UserId": "5",
+    "GroupId": "1"
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 7
+}
+```
+
+##### 7. POST: http://localhost:3000/api/group/addUsers
+This is the ADD USERS TO GROUP API and will be accessed by only authenticated user having Admin or Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{    
+    "GroupId": "2",
+    "UserIds":[
+        {
+            "UserId": 1
+        },
+        {
+            "UserId": 2
+        },
+        {
+            "UserId": 3
+        }
+    ]
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{    
+    "GroupId": "2",
+    "UserIds":[
+        {
+            "UserId": 1
+        },
+        {
+            "UserId": 2
+        },
+        {
+            "UserId": 3
+        }
+    ]
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 10
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{    
+    "GroupId": "2",
+    "UserIds":[
+        {
+            "UserId": 1
+        },
+        {
+            "UserId": 2
+        },
+        {
+            "UserId": 3
+        }
+    ]
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Record created successfully!",
+    "data": 11
+}
+```
+
+#### E. Message APIs
+##### 1. POST: http://localhost:3000/api/message
+This is the SEND MESSAGE API and will be accessed by only authenticated user having Admin or Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{
+    "Message": "Individual Test Message!",
+    "SenderId": 2,
+    "RecipientId": 1
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{
+    "Message": "Individual Test Message!",
+    "SenderId": 2,
+    "RecipientId": 1
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Message sent successfully!",
+    "data": {
+        "MessageId": 1,
+        "MessageRecipientId": 1
+    }
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{
+    "Message": "Individual Test Message!",
+    "SenderId": 2,
+    "RecipientId": 1
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Message sent successfully!",
+    "data": {
+        "MessageId": 2,
+        "MessageRecipientId": 2
+    }
+}
+```
+
+##### 2. POST: http://localhost:3000/api/message/sendGroupMessage
+This is the SEND GROUP MESSAGE API and will be accessed by only authenticated user having Admin or Basic role. Authentication/Authorization and Access token are required to access this api!
+###### Payload: Without Access token in request header
+```json
+{
+    "Message": "Group Test Message",
+    "SenderId": 2,
+    "GroupId": 5
+}
+```
+
+###### Authentication Header:
+```json
+Required but not passing.
+```
+
+###### Response:
+```json
+{
+    "error": true,
+    "message": "No access token available!"
+}
+```
+
+###### OR
+###### Payload: With User Access token in request header
+```json
+{
+    "Message": "Group Test Message",
+    "SenderId": 2,
+    "GroupId": 5
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI3NDYwNTcyLCJleHAiOjE2Mjc1NDY5NzJ9.Cv98nTvJqXneedDpaFpHVUOd_bMZVMbXFinejS-dPh4"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Message sent successfully!",
+    "data": null
+}
+```
+
+###### OR
+###### Payload: With Admin Access token in request header
+```json
+{
+    "Message": "Group Test Message",
+    "SenderId": 2,
+    "GroupId": 5
+}
+```
+
+###### Authentication Header:
+```json
+"x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI3NDYwNjM2LCJleHAiOjE2Mjc1NDcwMzZ9.1ODpKZlgbyvnRmVXECJC_VVmZ_adoKNa0txwSIh8O9Q"
+```
+
+###### Response:
+```json
+{
+    "error": false,
+    "message": "Message sent successfully!",
+    "data": null
+}
+```
