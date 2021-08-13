@@ -29,13 +29,15 @@ You can use any database of your choice to complete this assignment.
 * Run npm install command on your terminal to install the required packages.
 * Run npm start command on your terminal to start the application. You will see the screen as below:
 
-![image](https://user-images.githubusercontent.com/84455469/127320266-4d31ea2a-db11-414b-a3b1-a58050ae9b41.png)
+![image](https://user-images.githubusercontent.com/84455469/129382586-ff55f3df-0d43-43a9-b54e-a925c1db0b84.png)
 
 * Open postman and execute APIs with payload mentioned as below. 
 * To execute the test cases defined in test.js file under test folder of the project, you have to open another terminal while keep running the first terminal.
 * On the new terminal run the commad "mocha". It will run all the test cases and you can see the results on the same terminal. You will see the screen as below:
 
-![image](https://user-images.githubusercontent.com/84455469/127320378-981bb489-0fdf-49de-9996-975f45a52aaf.png)
+![image](https://user-images.githubusercontent.com/84455469/129382686-08f14670-7110-464c-9ee0-4224081ccc15.png)
+![image](https://user-images.githubusercontent.com/84455469/129382779-4b494ba6-c10f-46ef-ae9f-9eac1e7f7c61.png)
+
 
 ### Required packages and commands to install
 > npm install express --save-dev
@@ -50,19 +52,21 @@ You can use any database of your choice to complete this assignment.
 
 > npm install jsonwebtoken
 
-> npm install --save-dev chai
+> npm install chai --save-dev
 
-> npm install --save-dev chai-http 
+> npm install chai-http --save-dev
 
 > npm install -g mocha --save-dev
 
-> npm install --save-dev supertest
+> npm install supertest --save-dev
 
-> npm install --save-dev should
+> npm install should --save-dev
+
+> npm install dotenv --save-dev
 
 ### Sample Request and Response
 #### A. SignIn API to get Access token
-##### 1. POST: http://localhost:5000/api/auth/signIn
+##### 1. POST: http://localhost:3000/api/auth/signIn
 This is the SIGNIN API and will be accessed by any user to get Access token!
 ###### Payload: Invalid UserName in payload
 ```json
@@ -164,7 +168,7 @@ Not Required
 ```
 
 #### B. Authentication & Authorization APIs
-##### 1. GET: http://localhost:5000/api/auth/default
+##### 1. GET: http://localhost:3000/api/auth/default
 This is the DEFAULT API and will be accessed by any user. Authentication/Authorization or Access token is not required to access this api!
 ###### Payload:
 ```json
@@ -184,7 +188,7 @@ Not Required
 }
 ```
 
-##### 2. GET: http://localhost:5000/api/auth/user
+##### 2. GET: http://localhost:3000/api/auth/user
 This is the USER DASHBOARD API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -223,7 +227,7 @@ Not Required
 }
 ```
 
-##### 3. GET: http://localhost:5000/api/auth/admin
+##### 3. GET: http://localhost:3000/api/auth/admin
 This is the ADMIN DASHBOARD API and will be accessed by only authenticated user having Admin role. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: With User Access token in request header
 ```json
@@ -263,7 +267,7 @@ Not Required
 ```
 
 #### C. User APIs
-##### 1. POST: http://localhost:5000/api/user
+##### 1. POST: http://localhost:3000/api/user
 This is the CREATE USER API and will be accessed by only authenticated user having Admin role. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -340,7 +344,7 @@ Required but not passing.
 }
 ```
 
-##### 2. PUT: http://localhost:5000/api/user/44
+##### 2. PUT: http://localhost:3000/api/user/44
 This is the UPDATE USER API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -410,7 +414,7 @@ Required but not passing.
 }
 ```
 
-##### 3. DELETE: http://localhost:5000/api/user/44
+##### 3. DELETE: http://localhost:3000/api/user/44
 This is the DELETE USER API and will be accessed by only authenticated user having Admin role. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -468,7 +472,7 @@ Not required.
 }
 ```
 
-##### 4. GET: http://localhost:5000/api/user/2
+##### 4. GET: http://localhost:3000/api/user/2
 This is the GET USER API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -518,7 +522,7 @@ Not required.
 }
 ```
 
-##### 5. GET: http://localhost:5000/api/user
+##### 5. GET: http://localhost:3000/api/user
 This is the GET USERS API and will be accessed by only authenticated user having admin role. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -597,7 +601,7 @@ Not required.
 }
 ```
 
-##### 6. PUT: http://localhost:5000/api/user/activateDeactivateUser/2
+##### 6. PUT: http://localhost:3000/api/user/activateDeactivateUser/2
 This is the ACTIVATE/DE-ACTIVATE USER API and will be accessed by only authenticated user having admin role. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
@@ -661,7 +665,7 @@ Required but not passing.
 }
 ```
 
-##### 7. PUT: http://localhost:5000/api/user/changeUserPassword/2
+##### 7. PUT: http://localhost:3000/api/user/changeUserPassword/2
 This is the CHANGE USER PASSWORD API and will be accessed by only authenticated user. Authentication/Authorization and Access token are required to access this api!
 ###### Payload: Without Access token in request header
 ```json
